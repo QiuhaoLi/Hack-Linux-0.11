@@ -1,3 +1,5 @@
+/* To run this code on a modern GNU/Linux distro,
+   compile with 'gcc pc.c -lpthread -DMODERN' */
 #define   __LIBRARY__
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +10,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#ifndef MODERN
 _syscall2(long, sem_open, const char *, name, unsigned int, value);
 _syscall1(int, sem_wait, sem_t *, sem);
 _syscall1(int, sem_post, sem_t *, sem);
@@ -23,6 +26,9 @@ sem_t * sem_open_wrapper(const char *name, unsigned int value)
     }
     return (sem_t *)returnValue;
 }
+#else
+#define sem_open_wrapper(name, value) sem_open(name, O_CREAT, 0666, value)
+#endif
 
 #define CHILDNUMBER 4
 #define BUFFERSIZE 10
