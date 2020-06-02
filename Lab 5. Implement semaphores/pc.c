@@ -58,13 +58,14 @@ int main(void)
     unsigned int producerPos = INIT_POS;
     unsigned long data;
     int i;
-    prelude();
+
+    if (prelude() != EXIT_SUCCESS)
+        return EXIT_FAILURE;
+
     for (i = 0; i < CHILD_NUMBER; ++i)
     {
         if (!fork()) /* spawn our consumers */
-        {
             return consumer();
-        }
     }
 
     /* Producer begins */
@@ -264,9 +265,7 @@ int main_cleanup(void)
         if (i == -1)
         {
             if (errno == ECHILD)
-            {
                 break;
-            }
             else
             {
                 perror("Claiming consumers...");
