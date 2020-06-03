@@ -42,7 +42,7 @@ sem_t *sem_open_wrapper(const char *name, unsigned int value)
 #define INIT_POS ((unsigned)0) /* Place data from the beginning */
 
 sem_t *bufferMutex, *empty, *full /*, *printMutex*/;
-/* Well.. It turned out that we don't really need a Mutex for stdout */
+/* Well.. It turns out that we don't really need a Mutex for stdout */
 int bufferFd = -1;
 int outputFd = -1;
 /* Init all semaphore and buffer files */
