@@ -173,7 +173,7 @@ void sleep_on(struct task_struct **p)
 	if (!p)
 		return;
 	if (current == &(init_task.task))
-		panic("task[0] trying to sleep");
+		printk("\n"); /* Lab3: We want to trigger blk interrupts for init */
 	tmp = *p;
 	*p = current;
 	current->state = TASK_UNINTERRUPTIBLE;
